@@ -11,11 +11,12 @@ router.get('/', (req, res) => {
 
 // create link
 router.post('/', (req, res) => {
+  const key = randomText()
   return URL.create({
     originalURL: req.body.originalURL,
-    key: randomText()
+    key: key
   })
-  .then(res.redirect('/'))
+  .then(res.render('success', { key }))
   .catch(error => console.error(error) )
 })
 
