@@ -2,12 +2,14 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const URLSchema = new Schema({
-  originalUrl: {
+  originalURL: {
     type: String,
     required: true
   },
-  shortenedUrl: {
+  key: {
     type: String,
     required: true
   }
 })
+
+module.exports = mongoose.model('URL', URLSchema)
