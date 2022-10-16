@@ -10,12 +10,16 @@ router.get('/', (req, res) => {
 
 // create link
 router.post('/', (req, res) => {
-  const key = randomText()
-  return URL.create({
-    originalURL: req.body.originalURL,
-    key
-  })
-    .then(res.render('success', { key }))
+  const originalURL = req.body.originalURL  
+  let key = ""
+  return URL.findOne({ originalURL })
+    .then(url => {
+      if (!url) {
+        key = randomText()
+        URL.create({ originalURL, key })
+      }
+      return res.render('success', { key: key? key:url.key })
+    })
     .catch(error => console.error(error))
 })
 
